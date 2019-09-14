@@ -1,0 +1,34 @@
+{
+  "name": "adhara_socket_io",
+  "version": "0.0.1",
+  "summary": "socket.io for flutter by adhara",
+  "description": "socket.io for flutter by adhara",
+  "homepage": "https://github.com/infitio/flutter_socket_io/",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Infitio": "rr.16566@gmail.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ],
+    "Socket.IO-Client-Swift": [
+
+    ],
+    "Starscream": [
+
+    ]
+  },
+  "swift_versions": "5.0",
+  "platforms": {
+    "ios": "9.0"
+  },
+  "swift_version": "5.0"
+}
