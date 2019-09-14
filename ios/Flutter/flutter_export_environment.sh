@@ -1,8 +1,8 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Volumes/MacVolume/flutter"
-export "FLUTTER_APPLICATION_PATH=/Volumes/MacVolume/flutter_project/bgb01"
-export "FLUTTER_TARGET=/Volumes/MacVolume/flutter_project/bgb01/lib/main.dart"
+export "FLUTTER_APPLICATION_PATH=/Volumes/MacVolume/flutterProjects/bgb01"
+export "FLUTTER_TARGET=/Volumes/MacVolume/flutterProjects/bgb01/lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "SYMROOT=${SOURCE_ROOT}/../build/ios"
 export "FLUTTER_FRAMEWORK_DIR=/Volumes/MacVolume/flutter/bin/cache/artifacts/engine/ios"
