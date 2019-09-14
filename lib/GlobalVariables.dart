@@ -128,7 +128,12 @@ class gv {
     for (var i = 0; i < 100; i++) {
       listSelectFiles.add('List: ' + i.toString());
     }
-    dirPathExternal = await getExternalStorageDirectory();
+    if (Platform.isAndroid) {
+      dirPathExternal = await getExternalStorageDirectory();
+    } else {
+      dirPathExternal = await getApplicationDocumentsDirectory();
+    }
+
     dirPathApp = await getApplicationDocumentsDirectory();
     strMoviePath = '${gv.dirPathApp.path}/Movies';
     strImagePath = '${gv.dirPathApp.path}/Images';
@@ -139,7 +144,7 @@ class gv {
         strPhotoDefPath = '${gv.dirPathExternal.path}/DCIM/Camera';
         await Directory(strPhotoDefPath).create(recursive: true);
       } else if (Platform.isIOS) {
-        strPhotoDefPath = '';
+        strPhotoDefPath = '${gv.dirPathExternal.path}/DCIM/Camera';
         ut.funDebug('Platform is IOS');
       }
     } catch (err) {
