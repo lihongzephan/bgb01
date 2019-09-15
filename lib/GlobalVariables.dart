@@ -12,7 +12,6 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:threading/threading.dart';
 
 // Import Self Darts
 import 'LangStrings.dart';
@@ -354,11 +353,11 @@ class gv {
       // Socket Return from socket.io server
       socket.on('HBReturn', (data) async {
         try {
-          // ut.funDebug('HBReturn Received');
+          ut.funDebug('HBReturn Received');
           timLastHBReceived = DateTime
               .now()
               .millisecondsSinceEpoch;
-          strLoginID = data[0];
+          // strLoginID = data[0];
           storeHome.dispatch(GVActions.Increment);
         } catch (err) {
           ut.funDebug('HBReturn Error: ' +
@@ -524,12 +523,6 @@ class gv {
           return;
         }
         aryActivateResult = data;
-      });
-
-      socket.on('HBReturn', (data) async {
-        timLastHbReceive = DateTime
-            .now()
-            .millisecondsSinceEpoch;
       });
 
       socket.on('TtsStart', (data) async {
@@ -736,58 +729,6 @@ class gv {
   static int intHBActualInterval = 10000;
   static int intHBNoResponseTimeout = 30000;
   static int timLastHBReceived = DateTime.now().millisecondsSinceEpoch;
-
-
-  static void funTimerHeartBeat() async {
-    while (true) {
-      // Sleep for 1 second
-      await Thread.sleep(intHBInterval);
-
-      // Check HB
-      if (DateTime.now().millisecondsSinceEpoch - timLastHBSent >
-          intHBFinalInterval) {
-        if (socket != null) {
-          ut.funDebug('Sending HB...' + DateTime.now().toString());
-          ut.funDebug('WebRTC Self ID: ' + strWebRtcSelfID);
-          socket.emit('HB', [strLoginID, strWebRtcSelfID]);
-          timLastHBSent = DateTime.now().millisecondsSinceEpoch;
-        }
-      }
-
-      if (DateTime.now().millisecondsSinceEpoch - timLastHbReceive >
-          intHBFinalTimeout) {
-        gbolSIOConnected = false;
-        socket.connect();
-      }
-
-      // Check should show eye
-      try {
-        if (bolHomeStartAction) {
-          if (DateTime.now().millisecondsSinceEpoch - timHomeFinishAction >
-              intHomeActionWaitToDefault) {
-            bolHomeStartAction = false;
-            strHomeAction = 'Default';
-            if (gstrCurPage == 'Home') {
-              storeHome.dispatch(GVActions.Increment);
-              ut.funDebug('storeHome Dispatched for Default');
-            }
-          }
-        }
-      } catch (err) {
-        // ???
-      }
-
-      // Check Camera CountDown
-      if (!bolHomeTakePhotoEnd && gstrCurPage == 'Home') {
-        if (DateTime.now().millisecondsSinceEpoch - timHomeStartAction > 1000) {
-          timHomeStartAction = DateTime.now().millisecondsSinceEpoch;
-          gv.intHomeCameraCountDown -= 1;
-          storeHome.dispatch(GVActions.Increment);
-          ut.funDebug('storeHome Dispatched for Count Down');
-        }
-      }
-    }
-  } // End of funTimerHeartBeat()
 
   // Reset All variables
   static void resetVars() {
