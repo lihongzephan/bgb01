@@ -124,8 +124,10 @@ Future <void> main2() async {
               gv.timLastHBSent = DateTime.now().millisecondsSinceEpoch;
           }
 
-          if (DateTime.now().millisecondsSinceEpoch - gv.timLastHbReceive >
+          if (DateTime.now().millisecondsSinceEpoch - gv.timLastHBReceived >
               gv.intHBFinalTimeout) {
+            ut.funDebug('HB Timeout Disconnect Start');
+            gv.timLastHBReceived  = DateTime.now().millisecondsSinceEpoch;
             gv.gbolSIOConnected = false;
             gv.socket.connect();
           }

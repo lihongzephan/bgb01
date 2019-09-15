@@ -358,7 +358,7 @@ class gv {
               .now()
               .millisecondsSinceEpoch;
           // strLoginID = data[0];
-          storeHome.dispatch(GVActions.Increment);
+          // storeHome.dispatch(GVActions.Increment);
         } catch (err) {
           ut.funDebug('HBReturn Error: ' +
               err.toString());
@@ -724,7 +724,6 @@ class gv {
   static int timHomeFinishAction = DateTime.now().millisecondsSinceEpoch;
   static int intHomeActionWaitToDefault = 10000;
   static int intHBFinalTimeout = 30000;
-  static int timLastHbReceive = DateTime.now().millisecondsSinceEpoch;
   // HeartBeat Timer
   static int intHBActualInterval = 10000;
   static int intHBNoResponseTimeout = 30000;
