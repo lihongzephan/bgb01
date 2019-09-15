@@ -142,11 +142,13 @@ class gv {
     await Directory(strImagePath).create(recursive: true);
     try {
       if (Platform.isAndroid) {
+        ut.funDebug('Platform is Android');
         strPhotoDefPath = '${gv.dirPathExternal.path}/DCIM/Camera';
         await Directory(strPhotoDefPath).create(recursive: true);
       } else if (Platform.isIOS) {
-        strPhotoDefPath = '${gv.dirPathExternal.path}/DCIM/Camera';
         ut.funDebug('Platform is IOS');
+        strPhotoDefPath = '${gv.dirPathExternal.path}/DCIM/Camera';
+        await Directory(strPhotoDefPath).create(recursive: true);
       }
     } catch (err) {
       strPhotoDefPath = '';

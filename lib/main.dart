@@ -126,44 +126,35 @@ Future <void> main2() async {
               gv.socket.emit('HB', [gv.strLoginID, gv.strWebRtcSelfID]);
               gv.timLastHBSent = DateTime.now().millisecondsSinceEpoch;
           }
-
-//          if (DateTime.now().millisecondsSinceEpoch - gv.timLastHBReceived >
-//              gv.intHBFinalTimeout) {
-//            ut.funDebug('HB Timeout Disconnect Start');
-//            gv.timLastHBReceived  = DateTime.now().millisecondsSinceEpoch;
-//            gv.gbolSIOConnected = false;
-//            gv.socket.connect();
-//          }
-
-          // Check should show eye
-          try {
-            if (gv.bolHomeStartAction) {
-              if (DateTime.now().millisecondsSinceEpoch - gv.timHomeFinishAction >
-                  gv.intHomeActionWaitToDefault) {
-                gv.bolHomeStartAction = false;
-                gv.strHomeAction = 'Default';
-                if (gv.gstrCurPage == 'Home') {
-                  gv.storeHome.dispatch(GVActions.Increment);
-                  ut.funDebug('storeHome Dispatched for Default');
-                }
-              }
-            }
-          } catch (err) {
-            // ???
-          }
-
-          // Check Camera CountDown
-          if (!gv.bolHomeTakePhotoEnd && gv.gstrCurPage == 'Home') {
-            if (DateTime.now().millisecondsSinceEpoch - gv.timHomeStartAction > 1000) {
-              gv.timHomeStartAction = DateTime.now().millisecondsSinceEpoch;
-              gv.intHomeCameraCountDown -= 1;
-              gv.storeHome.dispatch(GVActions.Increment);
-              ut.funDebug('storeHome Dispatched for Count Down');
-            }
-          }
-
         } catch (err) {
+          ut.funDebug('Send HB Error:' + err.toString());
+        }
+      }
 
+      // Check should show eye
+      try {
+        if (gv.bolHomeStartAction) {
+          if (DateTime.now().millisecondsSinceEpoch - gv.timHomeFinishAction >
+              gv.intHomeActionWaitToDefault) {
+            gv.bolHomeStartAction = false;
+            gv.strHomeAction = 'Default';
+            if (gv.gstrCurPage == 'Home') {
+              gv.storeHome.dispatch(GVActions.Increment);
+              ut.funDebug('storeHome Dispatched for Default');
+            }
+          }
+        }
+      } catch (err) {
+        // ???
+      }
+
+      // Check Camera CountDown
+      if (!gv.bolHomeTakePhotoEnd && gv.gstrCurPage == 'Home') {
+        if (DateTime.now().millisecondsSinceEpoch - gv.timHomeStartAction > 1000) {
+          gv.timHomeStartAction = DateTime.now().millisecondsSinceEpoch;
+          gv.intHomeCameraCountDown -= 1;
+          gv.storeHome.dispatch(GVActions.Increment);
+          ut.funDebug('storeHome Dispatched for Count Down');
         }
       }
 
