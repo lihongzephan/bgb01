@@ -91,11 +91,13 @@ Future <void> main2() async {
 // ********** Important ****************
   // Cannot initSocket in thread
   int intCounter = 0;
+  ut.funDebug('intCounter inited to 0');
   Future <void> funTimerMain() async {
     try {
       intCounter += 1;
 
       if (intCounter == 1) {
+        ut.funDebug('First Time gv.initSocket');
         await gv.initSocket();
       } else {
         if (!gv.gbolSIOConnected) {
@@ -109,6 +111,7 @@ Future <void> main2() async {
       }
 
       if (DateTime.now().millisecondsSinceEpoch - gv.timLastHBReceived > gv.intHBNoResponseTimeout) {
+        ut.funDebug('Client Disconnect Server because of Timeout');
         gv.timLastHBReceived = DateTime.now().millisecondsSinceEpoch;
         gv.funDisconnect(gv.socket);
       }
@@ -124,13 +127,13 @@ Future <void> main2() async {
               gv.timLastHBSent = DateTime.now().millisecondsSinceEpoch;
           }
 
-          if (DateTime.now().millisecondsSinceEpoch - gv.timLastHBReceived >
-              gv.intHBFinalTimeout) {
-            ut.funDebug('HB Timeout Disconnect Start');
-            gv.timLastHBReceived  = DateTime.now().millisecondsSinceEpoch;
-            gv.gbolSIOConnected = false;
-            gv.socket.connect();
-          }
+//          if (DateTime.now().millisecondsSinceEpoch - gv.timLastHBReceived >
+//              gv.intHBFinalTimeout) {
+//            ut.funDebug('HB Timeout Disconnect Start');
+//            gv.timLastHBReceived  = DateTime.now().millisecondsSinceEpoch;
+//            gv.gbolSIOConnected = false;
+//            gv.socket.connect();
+//          }
 
           // Check should show eye
           try {
