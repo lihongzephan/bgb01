@@ -82,8 +82,106 @@ Future <void> main2() async {
     gv.gstrLastPage = 'SelectLanguage';
   }
 
+
+
   // Init socket.io
-  await gv.initSocket();
+  //await gv.initSocket();
+
+
+// ********** Important ****************
+  // Cannot initSocket in thread
+  int intCounter = 0;
+  Future <void> funTimerMain() async {
+    try {
+      intCounter += 1;
+
+      if (intCounter == 1) {
+        await gv.initSocket();
+      } else {
+        if (!gv.gbolSIOConnected) {
+          if (DateTime.now().millisecondsSinceEpoch - gv.timLastDisconnect > gv.intHBActualInterval) {
+            // ut.funDebug('Try to create new socket and timer');
+            gv.timLastDisconnect = DateTime.now().millisecondsSinceEpoch;
+            await gv.initSocket();
+            // ut.funDebug('Try to create new socket and timer end');
+          }
+        }
+      }
+
+      if (DateTime.now().millisecondsSinceEpoch - gv.timLastHBReceived > gv.intHBNoResponseTimeout) {
+        gv.timLastHBReceived = DateTime.now().millisecondsSinceEpoch;
+        gv.funDisconnect(gv.socket);
+      }
+
+      // Check time and send HB
+      if (DateTime.now().millisecondsSinceEpoch - gv.timLastHBSent > gv.intHBActualInterval) {
+        gv.timLastHBSent = DateTime.now().millisecondsSinceEpoch;
+        try {
+          if (gv.socket != null) {
+              ut.funDebug('Sending HB...' + DateTime.now().toString());
+              ut.funDebug('WebRTC Self ID: ' + gv.strWebRtcSelfID);
+              gv.socket.emit('HB', [gv.strLoginID, gv.strWebRtcSelfID]);
+              gv.timLastHBSent = DateTime.now().millisecondsSinceEpoch;
+          }
+
+          if (DateTime.now().millisecondsSinceEpoch - gv.timLastHbReceive >
+              gv.intHBFinalTimeout) {
+            gv.gbolSIOConnected = false;
+            gv.socket.connect();
+          }
+
+          // Check should show eye
+          try {
+            if (gv.bolHomeStartAction) {
+              if (DateTime.now().millisecondsSinceEpoch - gv.timHomeFinishAction >
+                  gv.intHomeActionWaitToDefault) {
+                gv.bolHomeStartAction = false;
+                gv.strHomeAction = 'Default';
+                if (gv.gstrCurPage == 'Home') {
+                  gv.storeHome.dispatch(GVActions.Increment);
+                  ut.funDebug('storeHome Dispatched for Default');
+                }
+              }
+            }
+          } catch (err) {
+            // ???
+          }
+
+          // Check Camera CountDown
+          if (!gv.bolHomeTakePhotoEnd && gv.gstrCurPage == 'Home') {
+            if (DateTime.now().millisecondsSinceEpoch - gv.timHomeStartAction > 1000) {
+              gv.timHomeStartAction = DateTime.now().millisecondsSinceEpoch;
+              gv.intHomeCameraCountDown -= 1;
+              gv.storeHome.dispatch(GVActions.Increment);
+              ut.funDebug('storeHome Dispatched for Count Down');
+            }
+          }
+
+        } catch (err) {
+
+        }
+      }
+
+      // Check STT
+//      if (DateTime.now().millisecondsSinceEpoch - gv.timLastResult > gv.intSTTWaitTime) {
+//        gv.timLastResult = DateTime.now().millisecondsSinceEpoch;
+//        await gv.sttStop();
+//        new Future.delayed(new Duration(milliseconds: 500), () async {
+//          gv.sttStart();
+//        });
+//      }
+    } catch (err) {
+      ut.funDebug('Main Timer Error: ' + err.toString());
+    }
+    new Future.delayed(new Duration(milliseconds: gv.intHBInterval), () async {
+      funTimerMain();
+    });
+  }
+
+  funTimerMain();
+
+
+
 
   ut.funDebug('Start runApp');
 

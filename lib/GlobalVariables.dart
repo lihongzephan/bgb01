@@ -129,8 +129,10 @@ class gv {
       listSelectFiles.add('List: ' + i.toString());
     }
     if (Platform.isAndroid) {
+      ut.funDebug('Running Android');
       dirPathExternal = await getExternalStorageDirectory();
     } else {
+      ut.funDebug('Running IOS');
       dirPathExternal = await getApplicationDocumentsDirectory();
     }
 
@@ -359,29 +361,11 @@ class gv {
           strLoginID = data[0];
           storeHome.dispatch(GVActions.Increment);
         } catch (err) {
-          ut.funDebug('Unable to go to UpgradeApp in HBReturn Error: ' +
+          ut.funDebug('HBReturn Error: ' +
               err.toString());
         }
       });
 
-
-      socket.onConnectError((data) {
-        gbolSIOConnected = false;
-        ut.funDebug('onConnectError');
-      });
-      socket.onConnectTimeout((data) {
-        gbolSIOConnected = false;
-        ut.funDebug('onConnectTimeout');
-      });
-      socket.onError((data) {
-        gbolSIOConnected = false;
-        ut.funDebug('onError');
-      });
-      socket.onDisconnect((data) {
-        gbolSIOConnected = false;
-        ut.funDebug('onDisconnect');
-        ut.showToast(ls.gs('NetworkDisconnected'));
-      });
 
       // Socket Return from socket.io server
 
@@ -708,8 +692,8 @@ class gv {
       socket.connect();
     }
     // Create a thread to send HeartBeat
-    var threadHB = new Thread(funTimerHeartBeat);
-    threadHB.start();
+    //var threadHB = new Thread(funTimerHeartBeat);
+    //threadHB.start();
   } // End of initSocket()
 
 
