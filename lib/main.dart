@@ -100,10 +100,10 @@ Future <void> main2() async {
       } else {
         if (!gv.gbolSIOConnected) {
           if (DateTime.now().millisecondsSinceEpoch - gv.timLastDisconnect > gv.intHBActualInterval) {
-            // ut.funDebug('Try to create new socket and timer');
+            ut.funDebug('Try to create new socket and timer');
             gv.timLastDisconnect = DateTime.now().millisecondsSinceEpoch;
             await gv.initSocket();
-            // ut.funDebug('Try to create new socket and timer end');
+            ut.funDebug('Try to create new socket and timer end');
           }
         }
       }
