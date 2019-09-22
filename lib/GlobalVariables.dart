@@ -583,7 +583,11 @@ class gv {
             }
 
             strHomeAction = 'ShowImage';
-            strHomeImageUrl = data[0][1];
+
+            ut.funDebug('Data: ' + data[0]);
+
+            //strHomeImageUrl = data[0][1];
+            strHomeImageUrl = data;
 
             ut.funDebug('Image Url from Server: ' + strHomeImageUrl);
 
