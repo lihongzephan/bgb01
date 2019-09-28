@@ -123,7 +123,7 @@ Future <void> main2() async {
           if (gv.socket != null) {
               ut.funDebug('Sending HB...' + DateTime.now().toString());
               ut.funDebug('WebRTC Self ID: ' + gv.strWebRtcSelfID);
-              gv.socket.emit('HB', [gv.strLoginID, gv.strWebRtcSelfID]);
+              gv.socket.emit('HB', [gv.strLoginID, gv.strWebRtcSelfID, gv.gstrLang]);
               gv.timLastHBSent = DateTime.now().millisecondsSinceEpoch;
           }
         } catch (err) {
