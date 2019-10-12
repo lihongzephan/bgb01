@@ -7,7 +7,7 @@ packages:
       name: adhara_socket_io
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.7"
+    version: "0.4.0"
   archive:
     dependency: transitive
     description:
@@ -42,7 +42,7 @@ packages:
       name: camera
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4+1"
+    version: "0.5.5+1"
   charcode:
     dependency: transitive
     description:
@@ -91,7 +91,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0+1"
+    version: "1.4.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -262,7 +262,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.6+4"
+    version: "1.1.7+1"
   stack_trace:
     dependency: transitive
     description:
@@ -332,7 +332,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.2+1"
+    version: "0.10.2+3"
   xml:
     dependency: transitive
     description:
@@ -341,5 +341,5 @@ packages:
     source: hosted
     version: "3.5.0"
 sdks:
-  dart: ">=2.4.0 <3.0.0"
-  flutter: ">=1.5.0 <2.0.0"
+  dart: ">=2.5.0 <3.0.0"
+  flutter: ">=1.9.1 <2.0.0"

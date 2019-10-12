@@ -99,7 +99,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   adhara_socket_io: a2f8b3079a0de70a1a3f5080a8429a4fb7ae9bea
-  camera: d56ad165545ae5a0ffb892376033760a969c68c8
+  camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
   connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
   file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec

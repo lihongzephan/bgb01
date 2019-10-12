@@ -25,6 +25,8 @@ import 'PageSettingsMain.dart';
 
 // Main Program
 Future <void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   ut.funDebug('Main Start');
 
   // Set Orientation to PortraitUp
