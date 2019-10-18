@@ -512,6 +512,47 @@ class _ClsHomeState extends State<ClsHome> with WidgetsBindingObserver {
             ),
           ),
         );
+      case 'MallAlbumAndTTS':
+        gv.timHomeFinishAction = DateTime.now().millisecondsSinceEpoch;
+        return Container(
+          padding: EdgeInsets.all(0.0),
+          child: Center(
+            child: (gv.strHomeTTS != "")
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(' '),
+                      ConstrainedBox(
+                        constraints: new BoxConstraints(
+                          minHeight: sv.dblDefaultFontSize * 2,
+                          maxHeight: sv.dblDefaultFontSize * 4,
+                        ),
+                        child: SingleChildScrollView(
+                          child: Text(gv.strHomeTTS,
+                              style: TextStyle(
+                                  fontSize: sv.dblDefaultFontSize * 2)),
+                        ),
+                      ),
+                      Text(' '),
+                      Expanded(
+                        child: Image.memory(base64Decode(gv.strHomeImageUrl),
+                            fit: BoxFit.fitHeight),
+                      ),
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Image.memory(base64Decode(gv.strHomeImageUrl),
+                            fit: BoxFit.cover),
+                      ),
+                    ],
+                  ),
+          ),
+        );
         break;
       default:
         return Container(

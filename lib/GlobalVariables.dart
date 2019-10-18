@@ -687,6 +687,67 @@ class gv {
         }
       });
 
+      socket.on('MallAlbumAndTTS', (data) async {
+        ut.funDebug('MallAlbumAndTTS receive from Server');
+        try {
+          if (gstrCurPage == 'Home') {
+            if (strHomeAction == 'TTS') {
+              funStopTTS();
+            }
+
+            strHomeAction = 'MallAlbumAndTTS';
+
+            data[0] = data[0].replaceAll('_', ',');
+            data[0] = data[0].substring(data[0].indexOf('base64,') + 7);
+
+            ut.funDebug('Mall Album data: ' + data[0]);
+            ut.funDebug('Mall Album tts: ' + data[1]);
+
+            //strHomeImageUrl = data[0][1];
+            strHomeImageUrl = data[0];
+
+            strHomeTTS = data[1];
+
+            //ut.funDebug('Image Url from Server: ' + strHomeImageUrl);
+
+            // Stop Previous TTS
+            try {
+              if (ttsState == TtsState.playing) {
+                var result = await flutterTts.stop();
+                if (result == 1) {
+                  ttsState = TtsState.stopped;
+                }
+              }
+            } catch (err) {}
+
+//          bolWebRtcShouldInit = false;
+            bolHomeStartAction = true;
+            timHomeFinishAction = DateTime
+                .now()
+                .millisecondsSinceEpoch + 60000;
+
+            // Speak New TTS
+            try {
+              ut.funDebug('Before TTS Start in socket');
+              //await flutterTts.setLanguage("en-US");
+              //var result = await flutterTts.speak('Hello, I am Bigaibot.');
+              var result = await flutterTts.speak(strHomeTTS);
+              ;
+              if (result == 1) {
+                ttsState = TtsState.playing;
+              }
+              ut.funDebug('After TTS Start in socket');
+            } catch (err) {}
+
+            storeHome.dispatch(GVActions.Increment);
+          } else {
+            ut.funDebug('gstrCurPage: ' + gstrCurPage);
+          }
+        } catch (err) {
+          ut.funDebug(('MallAlbumAndTTS Error in socket: ' + err.toString()));
+        }
+      });
+
       // Connect Socket
       socket.connect();
     }
