@@ -536,7 +536,7 @@ class _ClsHomeState extends State<ClsHome> with WidgetsBindingObserver {
                       ),
                       Text(' '),
                       Expanded(
-                        child: Image.memory(base64Decode(gv.strHomeImageUrl),
+                        child: Image.network(gv.strHomeImageUrl,
                             fit: BoxFit.fitHeight),
                       ),
                     ],
@@ -546,7 +546,7 @@ class _ClsHomeState extends State<ClsHome> with WidgetsBindingObserver {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
-                        child: Image.memory(base64Decode(gv.strHomeImageUrl),
+                        child: Image.network(gv.strHomeImageUrl,
                             fit: BoxFit.cover),
                       ),
                     ],

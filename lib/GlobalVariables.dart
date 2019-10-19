@@ -697,18 +697,18 @@ class gv {
 
             strHomeAction = 'MallAlbumAndTTS';
 
-            data[0] = data[0].replaceAll('_', ',');
-            data[0] = data[0].substring(data[0].indexOf('base64,') + 7);
-
-            ut.funDebug('Mall Album data: ' + data[0]);
-            ut.funDebug('Mall Album tts: ' + data[1]);
+            //ut.funDebug('Mall Album usr name: ' + data[0]);
+            //ut.funDebug('Mall Album name: ' + data[1]);
+            //ut.funDebug('Mall Album tts: ' + data[2]);
 
             //strHomeImageUrl = data[0][1];
-            strHomeImageUrl = data[0];
+            // www.bigaibot.com/usr_file/
+            // http://more.starfall.com/info/apps/imgs/abc.jpg
+            strHomeImageUrl = 'http://www.bigaibot.com/usr_file/' + data[0] + '/' + data[1];
 
-            strHomeTTS = data[1];
+            strHomeTTS = data[2];
 
-            //ut.funDebug('Image Url from Server: ' + strHomeImageUrl);
+            ut.funDebug('Image Url from Server: ' + strHomeImageUrl);
 
             // Stop Previous TTS
             try {
